@@ -1,0 +1,15 @@
+{
+    "files.associations": {
+        "iostream": "cpp"
+    },
+    "cSpell.words": [
+        "Electrico",
+        "Fabricacion",
+        "Metodo",
+        "METODOS",
+        "Numeros",
+        "vehiculo",
+        "Vehiculo"
+    ],
+    "C_Cpp.errorSquiggles": "disabled"
+}
