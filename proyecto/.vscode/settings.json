@@ -1,0 +1,15 @@
+{
+    "cSpell.words": [
+        "eleccion",
+        "Metodo",
+        "METODOS",
+        "Vehiculo"
+    ],
+    "cSpell.ignoreWords": [
+        "fabricacion",
+        "vehiculo"
+    ],
+    "files.associations": {
+        "iostream": "cpp"
+    }
+}
