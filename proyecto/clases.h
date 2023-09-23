@@ -1,16 +1,13 @@
 #include <iostream>
 #include <string>
 
-// Clase base Vehiculo
+// Clase base Vehiculo -> Virtual pura
 class Vehiculo {
-private:
-    int numeroMotor;
-    int cantidadRuedas;
-    int capacidadTanque;
-    int anoFabricacion;
-
+protected:
+    int numeroMotor, cantidadRuedas, anoFabricacion, tipoVehiculo, tipoCombustible;
+    double precioBase;
 public:
-    Vehiculo(int numeroMotor, int cantidadRuedas, int capacidadTanque, int anoFabricacion);
+    Vehiculo(int numeroMotor, int cantidadRuedas, int anoFabricacion, int tipoVehiculo, int tipoCombustible, double precioBase);
     virtual ~Vehiculo() = 0;
     virtual void pedirDatos();
     virtual void mostrarDatos();
@@ -19,49 +16,49 @@ public:
 
 // Clase derivada Auto
 class Auto : public Vehiculo {
-private:
+protected:
     std::string marca;
-    double precioBase;
-
+    double precioFinal = 0;
 public:
-    Auto(std::string marca, double precioBase, int numeroMotor, int cantidadRuedas, int capacidadTanque, int anoFabricacion);
+    Auto(std::string marca, int numeroMotor, int cantidadRuedas, int anoFabricacion, int tipoVehiculo, int tipoCombustible, double precioBase);
     ~Auto() override;
     void pedirDatos() override;
     void mostrarDatos() override;
     double calcularPrecio() override;
+    
 };
 
 // Clase derivada Moto
 class Moto : public Vehiculo {
-private:
+protected:
     std::string marca;
-    double precioBase;
-
+    double precioFinal = 0;
 public:
-    Moto(std::string marca, double precioBase, int numeroMotor, int cantidadRuedas, int capacidadTanque, int anoFabricacion);
+    Moto(std::string marca, int numeroMotor, int cantidadRuedas, int anoFabricacion, int tipoVehiculo, int tipoCombustible, double precioBase);
     ~Moto() override;
     void pedirDatos() override;
     void mostrarDatos() override;
     double calcularPrecio() override;
+    
 };
 
 // Clase derivada Camion
 class Camion : public Vehiculo {
-private:
+protected:
     std::string marca;
-    double precioBase;
-
+    double precioFinal = 0;
 public:
-    Camion(std::string marca, double precioBase, int numeroMotor, int cantidadRuedas, int capacidadTanque, int anoFabricacion);
+    Camion(std::string marca, int numeroMotor, int cantidadRuedas, int anoFabricacion, int tipoVehiculo, int tipoCombustible, double precioBase);
     ~Camion() override;
     void pedirDatos() override;
     void mostrarDatos() override;
     double calcularPrecio() override;
+    
 };
 
 // Clase Cliente
 class Cliente {
-private:
+protected:
     std::string nombre;
     std::string rut;
 
