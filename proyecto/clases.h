@@ -1,97 +1,131 @@
 #include <iostream>
+#include <string>
+#include <vector>
+#include <memory>
 
-using namespace std;
-// Clase Vehiculo
-class Vehiculo 
-{
-  protected:
-    int numero_motor, cantidad_ruedas, tipo_vehiculo, ano_fabricacion;
-
-  public:
-    Vehiculo(int, int, int, int);
-    virtual ~Vehiculo();
+// Clase base Vehiculo -> Virtual pura
+class Vehiculo {
+protected:
+    int numeroMotor, cantidadRuedas, anoFabricacion, tipoVehiculo, tipoCombustible;
+    double precioBase;
+public:
+    // Añadir los valores por defecto directamente en la declaración del constructor.
+    Vehiculo(
+        int numeroMotor = 0, 
+        int cantidadRuedas = 0, 
+        int anoFabricacion = 0, 
+        int tipoVehiculo = 0, 
+        int tipoCombustible = 0, 
+        double precioBase = 0.0);
+    virtual ~Vehiculo() = 0;
     virtual void pedirDatos();
     virtual void mostrarDatos();
-    
+    virtual double calcularPrecio() = 0;  // Método virtual puro
 };
 
-// Clase Auto
+// Clase derivada Auto
 class Auto : public Vehiculo {
-  private:
-    string marca;
-    double precio;
-
-  public:
-    // Constructor de la clase Auto
+protected:
+    std::string marca;
+    double precioFinal = 0;
+public:
     Auto(
-    string _marca, 
-    double _precio, 
-    int _numero_motor, 
-    int _cantidad_ruedas, 
-    int _tipo_vehiculo, 
-    int _ano_fabricacion
-    );
-
+        std::string marca = "",
+        int numeroMotor = 0, 
+        int cantidadRuedas = 0, 
+        int anoFabricacion = 0, 
+        int tipoVehiculo = 0, 
+        int tipoCombustible = 0, 
+        double precioBase = 0.0);
     ~Auto() override;
     void pedirDatos() override;
     void mostrarDatos() override;
-    double calcular_precio();
-
+    double calcularPrecio() override;
+    
 };
 
-//Clase Moto 
+// Clase derivada Moto
 class Moto : public Vehiculo {
-  protected:
-    string marca;
-    double precio;
-
-  public:
+protected:
+    std::string marca;
+    double precioFinal = 0;
+public:
     Moto(
-    string _marca, 
-    double _precio, 
-    int _numero_motor, 
-    int _cantidad_ruedas, 
-    int _tipo_vehiculo, 
-    int _ano_fabricacion
-    );
+        std::string marca = "",
+        int numeroMotor = 0, 
+        int cantidadRuedas = 0, 
+        int anoFabricacion = 0, 
+        int tipoVehiculo = 0, 
+        int tipoCombustible = 0, 
+        double precioBase = 0.0);
     ~Moto() override;
-    virtual void pedirDatos() override;
-    virtual void mostrarDatos() override;
-    double calcular_precio();
+    void pedirDatos() override;
+    void mostrarDatos() override;
+    double calcularPrecio() override;
+    
 };
 
-// Clase Camion
+// Clase derivada Camion
 class Camion : public Vehiculo {
-  protected:
-    string marca;
-    double precio;
-
-  public:
+protected:
+    std::string marca;
+    double precioFinal = 0;
+public:
     Camion(
-    string _marca, 
-    double _precio, 
-    int _numero_motor, 
-    int _cantidad_ruedas, 
-    int _tipo_vehiculo, 
-    int _ano_fabricacion
-    );
+        std::string marca = "",
+        int numeroMotor = 0, 
+        int cantidadRuedas = 0, 
+        int anoFabricacion = 0, 
+        int tipoVehiculo = 0, 
+        int tipoCombustible = 0, 
+        double precioBase = 0.0);
     ~Camion() override;
     void pedirDatos() override;
     void mostrarDatos() override;
-    double calcular_precio();
+    double calcularPrecio() override;
+    
 };
 
-// Clase cliente
 class Cliente {
-  private: 
-    string nombre, rut;
+protected:
+    std::string nombre;
+    std::string rut;
+    std::vector<std::unique_ptr<Vehiculo>> vehiculos;  // Vector de punteros inteligentes
 
-  public:
-    int cantidad_Autos = 0; 
-    int cantidad_Motos = 0; 
-    int cantidad_Camiones = 0;
-    Cliente(string, string);
+public:
+    int cantidadAutos = 0;
+    int cantidadMotos = 0;
+    int cantidadCamiones = 0;
+
+    Cliente(std::string, std::string);
+
     ~Cliente();
+
     void pedirDatos();
+
     void mostrarDatos();
-};  
+
+    void agregarVehiculo(std::unique_ptr<Vehiculo> vehiculo) {
+    if(dynamic_cast<Auto*>(vehiculo.get())) {
+        cantidadAutos++;
+    } else if(dynamic_cast<Moto*>(vehiculo.get())) {
+        cantidadMotos++;
+    } else if(dynamic_cast<Camion*>(vehiculo.get())) {
+        cantidadCamiones++;
+    }
+    vehiculos.push_back(std::move(vehiculo));
+}
+
+    double calcularTotalVentas() const {
+    double total = 0.0;
+    for(const auto& vehiculoUniquePtr : vehiculos) {
+        total += vehiculoUniquePtr->calcularPrecio();
+    }
+    return total;
+}
+
+    int cantidadVehiculos() const {
+        return vehiculos.size();
+    }
+};
+
