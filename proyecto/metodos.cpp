@@ -19,15 +19,23 @@ N° tipo de combustible:
 // ---- Implementación de métodos para la clase Vehiculo ----
 
 // Constructor de Vehiculo
-Vehiculo::Vehiculo(int _numeroMotor, int _cantidadRuedas, int _anoFabricacion, int _tipoVehiculo, int _tipoCombustible, double _precioBase)
-    : numeroMotor(_numeroMotor), cantidadRuedas(_cantidadRuedas), anoFabricacion(_anoFabricacion), tipoVehiculo(_tipoVehiculo), tipoCombustible(_tipoCombustible), precioBase(_precioBase) {
+Vehiculo::Vehiculo(
+    int _numeroMotor,
+    int _cantidadRuedas,
+    int _anoFabricacion,
+    int _tipoVehiculo,
+    int _tipoCombustible,
+    double _precioBase)
+    : numeroMotor(_numeroMotor), cantidadRuedas(_cantidadRuedas), anoFabricacion(_anoFabricacion), tipoVehiculo(_tipoVehiculo), tipoCombustible(_tipoCombustible), precioBase(_precioBase)
+{
 }
 
 // Destructor de Vehiculo
 Vehiculo::~Vehiculo() {}
 
 // Método para pedir datos de Vehiculo
-void Vehiculo::pedirDatos(){
+void Vehiculo::pedirDatos()
+{
     cout << "\nIngresar numero de motor: ";
     cin >> this->numeroMotor;
     cout << "\nIngresar cantidad de ruedas: ";
@@ -43,7 +51,8 @@ void Vehiculo::pedirDatos(){
 }
 
 // Método para mostrar datos de Vehiculo
-void Vehiculo::mostrarDatos(){
+void Vehiculo::mostrarDatos()
+{
     cout << "\nNumero de motor:" << this->numeroMotor;
     cout << "\nCantidad de ruedas:" << this->cantidadRuedas;
     cout << "\nAño de fabricacion:" << this->anoFabricacion;
@@ -55,10 +64,10 @@ void Vehiculo::mostrarDatos(){
     case 2:
         cout << "\nTipo de vehiculo: Moto";
         break;
-    case 3: 
+    case 3:
         cout << "\nTipo de vehiculo: Camion";
         break;
-    
+
     default:
         cout << "\nTipo de vehiculo: No definido";
         break;
@@ -66,15 +75,18 @@ void Vehiculo::mostrarDatos(){
 }
 // Método para calcular el precio de Vehiculo
 
-double Vehiculo::calcularPrecio(){
-    int precioFinal = 0;	
+double Vehiculo::calcularPrecio()
+{
+    int precioFinal = 0;
     if (this->anoFabricacion < 2000)
     {
         precioFinal = this->precioBase * 0.5;
-    } else if (this->anoFabricacion >= 2000 && this->anoFabricacion <= 2017)
+    }
+    else if (this->anoFabricacion >= 2000 && this->anoFabricacion <= 2017)
     {
         precioFinal = this->precioBase - this->precioBase * 0.3;
-    } else if (this->anoFabricacion > 2017)
+    }
+    else if (this->anoFabricacion > 2017)
     {
         precioFinal = this->precioBase - this->precioBase * 0.15;
     }
@@ -88,15 +100,22 @@ double Vehiculo::calcularPrecio(){
 // ---- Implementación de métodos para la clase Auto ----
 
 // Constructor de Auto
-Auto::Auto(std::string _marca, int _numeroMotor, int _cantidadRuedas, int _anoFabricacion, int _tipoVehiculo, int _tipoCombustible, double _precioBase)
-    : Vehiculo
-    (_numeroMotor, 
-    _cantidadRuedas, 
-    _anoFabricacion, 
-    _tipoVehiculo, 
-    _tipoCombustible,
-    _precioBase
-    ), marca(_marca) {
+Auto::Auto(std::string _marca,
+        int _numeroMotor,
+        int _cantidadRuedas,
+        int _anoFabricacion, 
+        int _tipoVehiculo,
+        int _tipoCombustible,
+        double _precioBase)
+: Vehiculo(_numeroMotor,
+        _cantidadRuedas,
+        _anoFabricacion,
+        _tipoVehiculo,
+        _tipoCombustible,
+        _precioBase
+        ),
+        marca(_marca)
+{
     this->precioBase = _precioBase;
 }
 
@@ -104,36 +123,48 @@ Auto::Auto(std::string _marca, int _numeroMotor, int _cantidadRuedas, int _anoFa
 Auto::~Auto() {}
 
 // Método para pedir datos de Auto
-void Auto::pedirDatos(){
+void Auto::pedirDatos()
+{
     Vehiculo::pedirDatos();
     cout << "\nIngresar marca del auto:";
     cin >> this->marca;
 }
 
 // Método para mostrar datos de Auto
-void Auto::mostrarDatos(){
+void Auto::mostrarDatos()
+{
     Vehiculo::mostrarDatos();
     cout << "\nMarca del auto:" << this->marca;
     cout << "\nPrecio final del auto:" << this->precioFinal;
 }
 
-double Auto::calcularPrecio(){
-    this-> precioFinal = Vehiculo::calcularPrecio();
+double Auto::calcularPrecio()
+{
+    this->precioFinal = Vehiculo::calcularPrecio();
     return this->precioFinal;
 }
 
 // ---- Implementación de métodos para la clase Moto ----
 
 // Constructor de Moto
-Moto::Moto(std::string _marca, int _numeroMotor, int _cantidadRuedas, int _anoFabricacion, int _tipoVehiculo, int _tipoCombustible, double _precioBase)
-    : Vehiculo
-    (_numeroMotor, 
-    _cantidadRuedas, 
-    _anoFabricacion, 
-    _tipoVehiculo, 
+Moto::Moto(
+    std::string _marca, 
+    int _numeroMotor, 
+    int _cantidadRuedas, 
+    int _anoFabricacion, 
+    int _tipoVehiculo, 
+    int _tipoCombustible, 
+    double _precioBase
+)
+: Vehiculo(
+    _numeroMotor,
+    _cantidadRuedas,
+    _anoFabricacion,
+    _tipoVehiculo,
     _tipoCombustible,
     _precioBase
-    ), marca(_marca) {
+),  marca(_marca)
+{
     this->precioBase = _precioBase;
 }
 
@@ -141,35 +172,38 @@ Moto::Moto(std::string _marca, int _numeroMotor, int _cantidadRuedas, int _anoFa
 Moto::~Moto() {}
 
 // Método para pedir datos de Moto
-void Moto::pedirDatos(){
+void Moto::pedirDatos()
+{
     Vehiculo::pedirDatos();
     cout << "\nIngresar marca de la moto:";
     cin >> this->marca;
 }
 
 // Método para mostrar datos de Moto
-void Moto::mostrarDatos(){
+void Moto::mostrarDatos()
+{
     Vehiculo::mostrarDatos();
     cout << "\nMarca de la moto:" << this->marca;
     cout << "\nPrecio final de la moto:" << this->precioFinal;
 }
 
-double Moto::calcularPrecio(){
-    this-> precioFinal = Vehiculo::calcularPrecio();
+double Moto::calcularPrecio()
+{
+    this->precioFinal = Vehiculo::calcularPrecio();
     return this->precioFinal;
 }
 // ---- Implementación de métodos para la clase Camion ----
 
 // Constructor de Camion
 Camion::Camion(std::string _marca, int _numeroMotor, int _cantidadRuedas, int _anoFabricacion, int _tipoVehiculo, int _tipoCombustible, double _precioBase)
-    : Vehiculo
-    (_numeroMotor, 
-    _cantidadRuedas, 
-    _anoFabricacion, 
-    _tipoVehiculo, 
-    _tipoCombustible,
-    _precioBase
-    ), marca(_marca) {
+    : Vehiculo(_numeroMotor,
+               _cantidadRuedas,
+               _anoFabricacion,
+               _tipoVehiculo,
+               _tipoCombustible,
+               _precioBase),
+      marca(_marca)
+{
     this->precioBase = _precioBase;
 }
 
@@ -177,37 +211,40 @@ Camion::Camion(std::string _marca, int _numeroMotor, int _cantidadRuedas, int _a
 Camion::~Camion() {}
 
 // Método para pedir datos de Camion
-void Camion::pedirDatos(){
+void Camion::pedirDatos()
+{
     Vehiculo::pedirDatos();
     cout << "\nIngresar marca de la Camion:";
     cin >> this->marca;
 }
 
 // Método para mostrar datos de Camion
-void Camion::mostrarDatos(){
+void Camion::mostrarDatos()
+{
     Vehiculo::mostrarDatos();
     cout << "\nMarca de la Camion:" << this->marca;
     cout << "\nPrecio final de la Camion:" << this->precioFinal;
 }
 
-double Camion::calcularPrecio(){
-    this-> precioFinal = Vehiculo::calcularPrecio();
+double Camion::calcularPrecio()
+{
+    this->precioFinal = Vehiculo::calcularPrecio();
     return this->precioFinal;
 }
 
 // ---- Implementación de métodos para la clase Cliente ----
 
 // Constructor de Cliente
-Cliente::Cliente(string _rut, string _nombre) {
-    this->nombre = _nombre;
-    this->rut = _rut;
+Cliente::Cliente(string _rut, string _nombre)
+    : rut(_rut), nombre(_nombre)
+{
 }
-
 // Destructor de Cliente
 Cliente::~Cliente() {}
 
 // Método para pedir datos del Cliente
-void Cliente::pedirDatos(){
+void Cliente::pedirDatos()
+{
     cout << "\nIngresar nombre del Cliente: ";
     cin >> this->nombre;
     cout << "\nIngresar rut del Cliente: ";
@@ -215,11 +252,10 @@ void Cliente::pedirDatos(){
 }
 
 // Método para mostrar datos del Cliente
-void Cliente::mostrarDatos(){
-    cout << "\nNombre: " << this->nombre;
+void Cliente::mostrarDatos()
+{
     cout << "\nRUT: " << this->rut;
+    cout << "\nNombre: " << this->nombre << endl;
 }
 
-
-
-
+// Método para agregar un vehículo al cliente
